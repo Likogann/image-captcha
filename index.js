@@ -1,15 +1,15 @@
 module.exports = { genCaptcha, genCaptchav2, genImgFromBuffer };
 
-// generateCaptchav1.js
+// generateCaptcha.js
 function genCaptcha(config) {
   let genCaptcha = require('./src/generateCaptcha.js');
   return genCaptcha(config);
 };
 
 // generateCaptchav2.js
-function genCaptchav2(config) {
+function genCaptchav2() {
   let genCaptchav2 = require('./src/generateCaptchav2.js');
-  return genCaptchav2(config);
+  return genCaptchav2();
 };
 
 // generateImageFromBuffer.js

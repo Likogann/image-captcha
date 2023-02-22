@@ -6,13 +6,14 @@ module.exports = function(configIn = {}) {
     let height = configIn.height || 200;
     let bgColour = configIn.bgColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
     let textColour = configIn.textColour || invert(bgColour, true);
+    let realTextColour = configIn.realTextColour || textColour
     // ## Obfuscation
     let lineWidth = configIn.lineWidth || 2;
     let lines = configIn.lines || Math.random()*20;  // Math.random()*20;
     let shapes = configIn.shapes || Math.random()*20; // Math.random()*20;
     let shapesSizeMultiplier = configIn.shapesSizeMultiplier || 40
     // ## Text size, length, and rotation
-    let fontsize = configIn.fontsize || 40;
+    let fontsize = configIn.fontsize || 60;
     let charLength = configIn.charLength || 6;
     let rotatemax = configIn.rotatemax || 20;
     let rotatemin = configIn.rotatemin || -20;
@@ -69,7 +70,7 @@ module.exports = function(configIn = {}) {
     };
 
     // ## Draw text
-    ctx.fillStyle = textColour;
+    ctx.fillStyle = realTextColour;
     ctx.font = fontsize + 'px OpenSans';
     for (let i = 0; i < text.length; i++) {
         let x = Math.random()*width;

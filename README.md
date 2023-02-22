@@ -42,7 +42,6 @@ You can change everything about the captcha generation. The following variables 
 // ## Base Image
 let configIn.width = 400;
 let configIn.height = 200;
-let configIn.textColour = "#" + Math.floor(Math.random()*16777215).toString(16);
 let configIn.bgColour = "#" + Math.floor(Math.random()*16777215).toString(16);
 // ## Obfuscation
 let configIn.lineWidth = 3;
@@ -54,7 +53,9 @@ let configIn.fontsize = 40;
 let configIn.charLength = 6;
 let configIn.rotatemax = 20;
 let configIn.rotatemin = -20;
-
+```
+After defining the new config, input that into the `genCaptcha()` function.  
+*`genCaptchav2()` doesn't accept custom configs. It is a custom config!*
+```js
 let captcha = genCaptcha(configIn)
-let captchav2 = genCaptchav2(configIn)
 ```
