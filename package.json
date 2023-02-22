@@ -3,7 +3,7 @@
   "version": "v1.0.0",
   "description": "Image captcha generation",
   "license": "MIT",
-  "repository": "likogan/image-captcha",
+  "repository": "likogann/image-captcha",
   "main": "index.js",
   "keywords": [
     "captcha",
