@@ -12,8 +12,8 @@
     "likogan",
     "likogann"
   ],
-  
   "dependencies": {
-    "canvas": "^2.11.0"
+    "canvas": "^2.11.0",
+    "invert-color": "^2.0.0"
   }
 }

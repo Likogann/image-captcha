@@ -1,10 +1,11 @@
 module.exports = function(configIn = {}) {
+    const invert = require('invert-color')
     // # Variable Initialisation
     // ## Image
     let width = configIn.width || 400;
     let height = configIn.height || 200;
-    let textColour = configIn.textColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
     let bgColour = configIn.bgColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    let textColour = configIn.textColour || invert(bgColour, true);
     // ## Obfuscation
     let lineWidth = configIn.lineWidth || 2;
     let lines = configIn.lines || Math.random()*20;  // Math.random()*20;
