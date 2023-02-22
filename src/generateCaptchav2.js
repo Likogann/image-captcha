@@ -3,8 +3,8 @@ module.exports = function(configIn = {}) {
     // ## Image
     let width = configIn.width || 400;
     let height = configIn.height || 200;
-    let textColour = configIn.textColour || "#" + Math.floor(Math.random()*16777215).toString(16); // "#" + Math.floor(Math.random()*16777215).toString(16);
-    let bgColour = configIn.bgColour || "#" + Math.floor(Math.random()*16777215).toString(16);  // "#" + Math.floor(Math.random()*16777215).toString(16);
+    let textColour = configIn.textColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+    let bgColour = configIn.bgColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
     // ## Obfuscation
     let lineWidth = configIn.lineWidth || 3;
     let lines = configIn.lines || Math.random()*200;  // Math.random()*200;
