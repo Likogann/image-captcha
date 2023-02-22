@@ -73,7 +73,7 @@ module.exports = function(configIn = {}) {
     for (let i = 0; i < text.length; i++) {
         let x = Math.random()*width;
         let y = Math.random()*height;
-        ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
+        //ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
         ctx.fillText(text[i], x, y);
     };
 
@@ -85,8 +85,7 @@ module.exports = function(configIn = {}) {
     textmetrics.height = textmetrics.actualBoundingBoxAscent + textmetrics.actualBoundingBoxDescent
     let textX = genRandom(0, width-textmetrics.width)
     let textY = genRandom(textmetrics.width*Math.tan(Math.abs(rotateval))+textmetrics.height, height-(textmetrics.width)*Math.tan(Math.abs(rotateval))) // I'm proud of this one
-    ctx.translate(textX, textY);
-    console.log(fontsize*charLength)
+    ctx.translate(textX, height-(textmetrics.width)*Math.tan(Math.abs(rotateval)));
     ctx.rotate(rotateval)
     ctx.fillText(text, 0, 0);
     ctx.restore();
