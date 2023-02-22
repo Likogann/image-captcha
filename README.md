@@ -69,3 +69,11 @@ let captcha = genCaptcha()
 console.log(captcha)
 genImgFromBuffer(captcha.png, "image.png")
 ```
+
+# Acknowledgments
+### NodeJS modules
+canvas [(npm)](https://www.npmjs.com/package/canvas) [(github)](https://github.com/Automattic/node-canvas) - Used for image generation.  
+invert-color [(npm)](https://www.npmjs.com/package/invert-color) [(github)](https://github.com/onury/invert-color) - Used to determine if the text on the generated captcha image should be black or white.  
+
+### Fonts
+OpenSans by Steve Matteson [(google fonts)](https://fonts.google.com/?query=Steve+Matteson)
