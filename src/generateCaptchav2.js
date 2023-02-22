@@ -68,19 +68,25 @@ module.exports = function(configIn = {}) {
     };
 
     // ## Draw text
-    ctx.fillStyle = bgColour;
+    ctx.fillStyle = textColour;
     ctx.font = fontsize + 'px OpenSans';
     for (let i = 0; i < text.length; i++) {
         let x = Math.random()*width;
         let y = Math.random()*height;
-        ctx.rotate(genRandom(rotatemin/90, rotatemax/90));
+        //ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
         ctx.fillText(text[i], x, y);
     };
 
     // ## Warp the text
     ctx.save();
-    ctx.translate(genRandom(fontsize*charLength/rotatemax, width-fontsize*charLength*0.8), genRandom(20, height-fontsize-20));
-    ctx.rotate(genRandom(rotatemin/90, rotatemax/90));
+    let rotateval = genRandom(rotatemin/90, rotatemax/90)
+    // genRandom((fontsize*charLength)*Math.tan(Math.abs(rotateval))+fontsize, height-(fontsize*charLength)*Math.tan(Math.abs(rotateval)))
+    let textmetrics = ctx.measureText(text)
+    textmetrics.height = textmetrics.actualBoundingBoxAscent + textmetrics.actualBoundingBoxDescent
+    let textX = genRandom(0, width-textmetrics.width)
+    let textY = genRandom(textmetrics.width*Math.tan(Math.abs(rotateval))+textmetrics.height, height-(textmetrics.width)*Math.tan(Math.abs(rotateval))) // I'm proud of this one
+    ctx.translate(textX, height-(textmetrics.width)*Math.tan(Math.abs(rotateval)));
+    ctx.rotate(rotateval)
     ctx.fillText(text, 0, 0);
     ctx.restore();
 
