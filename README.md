@@ -5,11 +5,11 @@ The default image size is 400x200px.
 
 #### Installing
 ```bash
-npm install @likogann/image-captcha
+npm install @likogan/image-captcha
 ```
 #### Including
 ```js
-const { genCaptcha, genCaptchav2, genImgFromBuffer } = require('@likogann/image-captcha')
+const { genCaptcha, genCaptchav2, genImgFromBuffer } = require('@likogan/image-captcha')
 ```
 
 # Generating a Captcha

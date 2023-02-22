@@ -1,14 +1,15 @@
 {
-  "name": "@likogann/image-captcha",
+  "name": "@likogan/image-captcha",
   "version": "v1.0.0",
   "description": "Image captcha generation",
   "license": "MIT",
-  "repository": "likogann/image-captcha",
+  "repository": "likogan/image-captcha",
   "main": "index.js",
   "keywords": [
     "captcha",
     "npm",
     "package",
+    "likogan",
     "likogann"
   ],
   
