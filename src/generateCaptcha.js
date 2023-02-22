@@ -93,7 +93,8 @@ module.exports = function(configIn = {}) {
 
     // ## Save image
     let png = canvas.toBuffer('image/png');
-    return {png, text}
+    let id = new Date; id = id.getTime()
+    return {png, text, id}
 
     // ## Generate Random Number between two values
     function genRandom(min, max) {

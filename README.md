@@ -21,9 +21,11 @@ When generating a Captcha, the function will return the PNG buffer, and the cont
 ```json
 {
   png: <Buffer 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 48 44 52 00 00 01 90 00 00 00 c8 08 06 00 00 00 c6 15 b7 e2 00 00 00 06 62 4b 47 44 00 ff 00 ff 00 ff a0 bd a7 ... 7120 more bytes>,
-  text: 'YYASBK'
+  text: 'YYASBK',
+  id: 1677038050778
 }
 ```
+*The ID is irrelevant*, it's generated as an easier way to tag an ID to an image for future authentication. The ID is just the current unix time. Doing this allows for easier captcha expiring, and means the user doesn't have to create their own ID system.
 
 ## Translating Buffer to PNG
 The PNG buffer of the captcha, and the desired image path are required. Passing those two variables will result in an image being written.
@@ -32,7 +34,7 @@ genImgFromBuffer(captcha.png, "./image.png")
 ```
 
 ## Captcha v2
-CaptchaV2 uses significantly more resources, but is significantly harder to read. CaptchaV2 generates the text to be the same colour as the background, using the random lines and boxes to reveal the text.
+CaptchaV2 uses significantly more resources, but is significantly harder to read. CaptchaV2 generates the text to be the same colour as the background, using the random lines and boxes to reveal the text. CaptchaV2 uses identical code to `genCaptcha()`, it just uses a different configuration.
 
 ## Custom Image Generation
 You can change everything about the captcha generation. The following variables are accepted. If the variable isn't included, it will use the default value.
