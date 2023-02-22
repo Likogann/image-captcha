@@ -79,7 +79,7 @@ module.exports = function(configIn = {}) {
 
     // ## Warp the text
     ctx.save();
-    ctx.translate(genRandom(fontsize*charLength/rotatemax, width-fontsize*charLength*0.8), genRandom(20, height-fontsize-20));
+    ctx.translate(genRandom(fontsize*charLength, width-fontsize*charLength*0.8), genRandom(fontsize*charLength/rotatemax, height-fontsize-20));
     ctx.rotate(genRandom(rotatemin/90, rotatemax/90));
     ctx.fillText(text, 0, 0);
     ctx.restore();
