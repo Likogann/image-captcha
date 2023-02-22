@@ -1,5 +1,5 @@
 let { genCaptcha, genCaptchav2, genImgFromBuffer } = require('./index.js')
-let captcha = genCaptchav2()
+let captcha = genCaptcha()
 
 console.log(captcha)
 genImgFromBuffer(captcha.png, "image.png")
