@@ -9,18 +9,18 @@ module.exports = function(configIn = {}) {
     let realTextColour = configIn.realTextColour || textColour
     // ## Obfuscation
     let lineWidth = configIn.lineWidth || 2;
-    let lines = configIn.lines || Math.random()*20;  // Math.random()*20;
-    let shapes = configIn.shapes || Math.random()*20; // Math.random()*20;
+    let lines = configIn.lines || Math.random()*20;
+    let shapes = configIn.shapes || Math.random()*20;
     let shapesSizeMultiplier = configIn.shapesSizeMultiplier || 40
     // ## Text size, length, and rotation
     let fontsize = configIn.fontsize || 60;
     let charLength = configIn.charLength || 6;
-    let rotatemax = configIn.rotatemax || 20;
-    let rotatemin = configIn.rotatemin || -20;
+    let rotatemax = configIn.rotatemax || 30;
+    let rotatemin = configIn.rotatemin || -30;
     
 
     // # Dependencies
-    const fs = require('fs');
+    //const fs = require('fs');
     const { createCanvas, registerFont } = require('canvas');
     const canvas = createCanvas();
 
@@ -43,7 +43,6 @@ module.exports = function(configIn = {}) {
         let char = String.fromCharCode(c);
         text += char;
     };
-    let answer = text
 
     // ## Draw lines
     ctx.strokeStyle = textColour;
@@ -75,7 +74,6 @@ module.exports = function(configIn = {}) {
     for (let i = 0; i < text.length; i++) {
         let x = Math.random()*width;
         let y = Math.random()*height;
-        //ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
         ctx.fillText(text[i], x, y);
     };
 
@@ -87,7 +85,7 @@ module.exports = function(configIn = {}) {
     textmetrics.height = textmetrics.actualBoundingBoxAscent + textmetrics.actualBoundingBoxDescent
     let textX = genRandom(0, width-textmetrics.width)
     let textY = genRandom(textmetrics.width*Math.tan(Math.abs(rotateval))+textmetrics.height, height-(textmetrics.width)*Math.tan(Math.abs(rotateval))) // I'm proud of this one
-    ctx.translate(textX, height-(textmetrics.width)*Math.tan(Math.abs(rotateval)));
+    ctx.translate(textX, textY);
     ctx.rotate(rotateval)
     ctx.fillText(text, 0, 0);
     ctx.restore();
@@ -96,9 +94,9 @@ module.exports = function(configIn = {}) {
     let png = canvas.toBuffer('image/png');
     let id = new Date; id = id.getTime()
     return {png, text, id}
-
-    // ## Generate Random Number between two values
-    function genRandom(min, max) {
-        return Math.random() * (max - min) + min;
-    };
 }
+
+// ## Generate Random Number between two values
+function genRandom(min, max) {
+    return Math.random() * (max - min) + min;
+};

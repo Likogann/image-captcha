@@ -9,10 +9,10 @@ module.exports = function() {
         bgColour: bgColour,
         realTextColour: bgColour,
         // ## Obfuscation
-        lineWidth: 3,
-        lines: Math.random()*200,
-        shapes: Math.random()*100,
-        shapesSizeMultiplier: 80,
+        lineWidth: 2,
+        lines: 100,
+        shapes: genRandom(10, 40),
+        shapesSizeMultiplier: 40,
         // ## Text size, length, and rotation
         fontsize: 60,
         charLength: 6,
@@ -22,3 +22,7 @@ module.exports = function() {
 
     return genCaptcha(config)
 }
+
+function genRandom(min, max) {
+    return Math.random() * (max - min) + min;
+};
