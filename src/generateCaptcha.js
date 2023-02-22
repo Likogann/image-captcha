@@ -73,7 +73,7 @@ module.exports = function(configIn = {}) {
     for (let i = 0; i < text.length; i++) {
         let x = Math.random()*width;
         let y = Math.random()*height;
-        //ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
+        ctx.rotate(genRandom(rotatemin/90, rotatemax/90)); // Rotates real text too
         ctx.fillText(text[i], x, y);
     };
 
