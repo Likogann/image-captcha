@@ -59,3 +59,13 @@ After defining the new config, input that into the `genCaptcha()` function.
 ```js
 let captcha = genCaptcha(configIn)
 ```
+
+# Examples
+The code below will generate a captcha, print the captcha info to console, then print the output to `image.png`.
+```js
+const { genCaptcha, genCaptchav2, genImgFromBuffer } = require('./index.js')
+
+let captcha = genCaptcha()
+console.log(captcha)
+genImgFromBuffer(captcha.png, "image.png")
+```
