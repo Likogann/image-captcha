@@ -3,71 +3,185 @@ NodeJS captcha image generator. This is a very basic captcha generator. It would
 <br>
 The default image size is 400x200px.
 
-#### Installing
+
+
+# Installing
+##### Install the npm package
 ```bash
 npm install @likogan/image-captcha
 ```
-#### Including
+##### Include the package in your code
 ```js
-const { genCaptcha, genCaptchav2, genImgFromBuffer } = require('@likogan/image-captcha')
+const Captcha = require('@likogan/image-captcha');
 ```
 
-# Generating a Captcha
-To generate a captcha, run the `genCaptcha()` or `genCaptchav2()` function.
+
+
+# Basic Use
+### Generate a Captcha
+To generate a captcha
 ```js
-let captcha = genCaptcha()
+let newCaptcha = Captcha.genCaptcha();
 ```
-When generating a Captcha, the function will return the PNG buffer, and the content of the captcha.
+
+### Turn Captcha to Image
+To turn the generated captcha into a PNG image in the applications root directory.
+```js
+let newCaptcha = Captcha.genCaptcha();
+Captcha.genImage(newCaptcha, 'image.png');
+```
+To generate the image in the directory `src/captchas/captcha.png`
+```js
+Captcha.genImage(newCaptcha, 'src/captchas/captcha.png');
+```
+
+
+### Verify Inputted Captcha
+To verify if a captcha inputted by a user is valid, we can use the function `verifyCaptcha()`
+```js
+let newCaptcha = Captcha.genCaptcha();
+
+// This is two of the variables generated from "genCaptcha()"
+let captchaToVerify = {
+	id: 1677132092166,
+  	hash: '$2b$04$tPz8CDNmrip.PSv69RFrvOTbVN072SSUqg9cRrleEsao3KoFXI0hW'
+};
+let userInput = 'IVPUVK';
+
+if (Captcha.verifyCaptcha(captchaToVerify, userInput)) { // "verifyCaptcha()" returns boolean value
+	console.log('Correct input');
+} else {
+	console.log('Invalid Input');
+};
+```
+
+
+# Further Documentation
+## genCaptcha()
+### Inputs
+`genCaptcha()` allows for a json object input to change how it generates the image.
+```js
+let config = {
+	// ## Base Image
+	width = 400, // Width of image
+	height = 200, // Height of image
+	bgColour: "#" + Math.floor(Math.random()*16777215).toString(16), // Background colour. Default is just random
+	textColour: null // DO NOT LEAVE AS NULL! The text colour, unless otherwise specific, will be white or black depending on the bgColour. Controls the colour of shapes, lines, and random text seen in image.
+	textColourReal: null // DO NOT LEAVE AS NULL! The real text colour, unless otherwise specific, will be the same as textColour. Only controls the colour of the real captcha text in the image.
+	// ## Obfuscation
+	lineWidth = 3, // Width of randomly genreated lines
+	lines: Math.random()*20, // Amount of randomly generated lines
+	shapes: Math.random()*20, // Amount of randomly generated shapes
+	.shapesSizeMultiplier: 40, // Size multiplier of squares (still random!)
+	// ## Text size, length, and rotation
+	fontsize: 60, // Size of all text on image
+	charLength: 6, // Length of real captcha
+	rotatemax: 30, // Maximum (right) rotation - too high makes it very hard to read
+	rotatemin: -30, // Minimum (left) rotation - too high makes it very hard to read
+	// # Authentication
+	hashSalt: 2 // The rounds of the hashed value of the captcha
+}
+
+let newCaptcha = Captcha.genCaptcha(config);
+```
+
+### Outputs
 ```json
 {
-  png: <Buffer 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 48 44 52 00 00 01 90 00 00 00 c8 08 06 00 00 00 c6 15 b7 e2 00 00 00 06 62 4b 47 44 00 ff 00 ff 00 ff a0 bd a7 ... 7120 more bytes>,
-  text: 'YYASBK',
-  id: 1677038050778
+  png: <Buffer 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 48 44 52 00 00 01 90 00 00 00 c8 08 06 00 00 00 c6 15 b7 e2 00 00 00 06 62 4b 47 44 00 ff 00 ff 00 ff a0 bd a7 ... 22344 more bytes>,
+  text: 'IVPUVK',
+  id: 1677132092166,
+  hash: '$2b$04$tPz8CDNmrip.PSv69RFrvOTbVN072SSUqg9cRrleEsao3KoFXI0hW'
 }
 ```
-*The ID is irrelevant*, it's generated as an easier way to tag an ID to an image for future authentication. The ID is just the current unix time. Doing this allows for easier captcha expiring, and means the user doesn't have to create their own ID system.
+`png` The raw data of the generated PNG image. This value can be used alongside `genImage()` to generate the full Captcha image.
+`text` The real text of the captcha. *Do not send this to the user!*
+`id` A generated ID used in the hash. It's just the current date in milliseconds. Used in `verifyCaptcha()`. Can also be used for your own custom verification method.
+`hash` The hash of `text` and `id`. Used for `verifyCaptcha()`
 
-## Translating Buffer to PNG
-The PNG buffer of the captcha, and the desired image path are required. Passing those two variables will result in an image being written.
+## genCaptchav2()
+Identical to genCaptcha(), but uses the following custom config
 ```js
-genImgFromBuffer(captcha.png, "./image.png")
+let bgColour = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)});
+const config = {
+	// ## Image
+	width: 400,
+	height: 200,
+	bgColour: bgColour,
+	realTextColour: bgColour,
+	// ## Obfuscation
+	lineWidth: 2,
+	lines: 100,
+	shapes: genRandom(10, 40),
+	shapesSizeMultiplier: 40,
+}
 ```
 
-## Captcha v2
-CaptchaV2 uses significantly more resources, but is significantly harder to read. CaptchaV2 generates the text to be the same colour as the background, using the random lines and boxes to reveal the text. CaptchaV2 uses identical code to `genCaptcha()`, it just uses a different configuration.
-
-## Custom Image Generation
-You can change everything about the captcha generation. The following variables are accepted. If the variable isn't included, it will use the default value.
-```js
-// ## Base Image
-let configIn.width = 400;
-let configIn.height = 200;
-let configIn.bgColour = "#" + Math.floor(Math.random()*16777215).toString(16);
-// ## Obfuscation
-let configIn.lineWidth = 3;
-let configIn.lines = Math.random()*200;  // Math.random()*200;
-let configIn.shapes = Math.random()*200; // Math.random()*200;
-let configIn.shapesSizeMultiplier = 80
-// ## Text size, length, and rotation
-let configIn.fontsize = 40;
-let configIn.charLength = 6;
-let configIn.rotatemax = 20;
-let configIn.rotatemin = -20;
+## genImage()
+Generates an image using the returned `png` variable from `genCaptcha()`.
+### Inputs
+`genImage()` requires two inputs. The captcha data, and the location of the image.
+#### Captcha Data
+Uses `png` from `genCaptcha()` to generate a PNG image.
+```json
+{
+  png: <Buffer 89 50 4e 47 0d 0a 1a 0a 00 00 00 0d 49 48 44 52 00 00 01 90 00 00 00 c8 08 06 00 00 00 c6 15 b7 e2 00 00 00 06 62 4b 47 44 00 ff 00 ff 00 ff a0 bd a7 ... 22344 more bytes>, ..
 ```
-After defining the new config, input that into the `genCaptcha()` function.  
-*`genCaptchav2()` doesn't accept custom configs. It is a custom config!*
+Input the whole object from `genCaptcha()`
 ```js
-let captcha = genCaptcha(configIn)
+let newCaptcha = Captcha.genCaptcha()
+
+Captcha.genImage(newCaptcha, 'image.png')
+```
+#### Image Location
+The second input is the image path in a string.
+Examples: `image.png` `src/captchas/captcha.png` 
+
+You can even get creative and use other variables to define a better suited path. For example, let's name the captcha image the date/time it was created, and under the web path of `/var/www`. The final path sould look like `/var/www/website/images/captchas/1677132092166.png`
+```js
+let newCatpcha = genCaptcha()
+
+let location = '`/var/www/website/images/captchas/${newCaptcha.id}.png`
+Captcha.genImage(newCaptcha, location)
 ```
 
-# Examples
-The code below will generate a captcha, print the captcha info to console, then print the output to `image.png`.
-```js
-const { genCaptcha, genCaptchav2, genImgFromBuffer } = require('./index.js')
 
-let captcha = genCaptcha()
-console.log(captcha)
-genImgFromBuffer(captcha.png, "image.png")
+##  verifyCaptcha()
+This function is very simple. It just comapares the user inputted captcha text, and the generated captcha object.
+### Inputs
+`verifyCaptcha()` requires two inputs. One of the generated captcha object, and the other of the user inputted captcha text.
+#### Captcha Object
+```json
+{
+  id: 1677132092166,
+  hash: '$2b$04$tPz8CDNmrip.PSv69RFrvOTbVN072SSUqg9cRrleEsao3KoFXI0hW'
+}
+```
+`verifyCaptcha(newCaptcha, ..)`
+
+#### Guessed Captcha Text
+The next is just the guessed captcha text from the user.
+```js
+let newCaptcha = Captcha.genCaptcha();
+
+// This is two of the variables generated from "genCaptcha()"
+let captchaToVerify = {
+	id: 1677132092166,
+  	hash: '$2b$04$tPz8CDNmrip.PSv69RFrvOTbVN072SSUqg9cRrleEsao3KoFXI0hW'
+};
+let userInput = 'IVPUVK';
+
+console.log(verifyCaptcha(captchaToVerify, userInput))
+```
+
+### Ouputs
+`verifyCaptcha()` returns a boolean, true or false, depending on if the captcha is correct or not.
+```js
+if (Captcha.verifyCaptcha(captchaToVerify, userInput)) { // "verifyCaptcha()" returns boolean value
+	console.log('Correct input');
+} else {
+	console.log('Invalid Input');
+};
 ```
 
 # Acknowledgments
