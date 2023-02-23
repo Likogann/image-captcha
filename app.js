@@ -1,8 +1,8 @@
-const { genCaptcha, genCaptchav2, verifyCaptcha, genImgFromBuffer } = require('./index.js');
+const Captcha = require('./index.js');
 
-let captcha = genCaptcha();
+let captcha = Captcha.genCaptcha();
 console.log(captcha);
-genImgFromBuffer(captcha.png, "image.png");
+Captcha.genImgFromBuffer(captcha.png, "image.png");
 
 let input = {
     id: 1677131747404,
@@ -10,4 +10,4 @@ let input = {
 };
 
 let guess = 'IBDWTE';
-console.log(verifyCaptcha(input, guess));
+console.log(Captcha.verifyCaptcha(input, guess));
