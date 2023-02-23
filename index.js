@@ -15,7 +15,7 @@ object.genCaptcha = function(config) {
 object.genCaptchav2 = function() {
   // Generate a background colour. We cannot do this inside var config ...
   // as it's used twice
-  bgColour = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)});
+  let bgColour = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)});
   const config = {
       // ## Image
       width: 400,
