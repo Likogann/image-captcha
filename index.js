@@ -1,5 +1,7 @@
-module.exports = { genCaptcha, genCaptchav2, genImgFromBuffer };
+module.exports = { genCaptcha, genCaptchav2, verifyCaptcha, genImgFromBuffer };
 
+// # Dependencies
+const bcrypt = require('bcrypt');
 
 // # Captcha Generation
 // ## generateCaptcha.js
@@ -42,6 +44,12 @@ function genCaptchav2() {
 function genImgFromBuffer(buf, path) {
   let genImgFromBuffer = require('./src/generateImageFromBuffer.js');
   return genImgFromBuffer(buf, path);
+};
+
+// # Captcha Verification
+function verifyCaptcha(input, guess) {
+    // Compare old hash to new hash
+    return bcrypt.compareSync(`${guess + input.id}`, input.hash);
 };
 
 // # Internal Functions

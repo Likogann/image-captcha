@@ -17,12 +17,15 @@ module.exports = function(configIn = {}) {
     let charLength = configIn.charLength || 6;
     let rotatemax = configIn.rotatemax || 30;
     let rotatemin = configIn.rotatemin || -30;
+    // ## Authenitication
+    let hashSalt = configIn.hashSalt || 2 // Higher means longer computation time, but more secure hash
     
 
     // # Dependencies
     //const fs = require('fs');
     const { createCanvas, registerFont } = require('canvas');
     const canvas = createCanvas();
+    const bcrypt = require('bcrypt');
 
 
     // # Code
@@ -92,8 +95,10 @@ module.exports = function(configIn = {}) {
 
     // ## Save image
     let png = canvas.toBuffer('image/png');
-    let id = new Date; id = id.getTime()
-    return {png, text, id}
+    let id = new Date; id = id.getTime();
+    // Hash the answer + id to allow for future authentication
+    let hash = bcrypt.hashSync(`${text + id}`, hashSalt)
+    return {png, text, id, hash};
 }
 
 // ## Generate Random Number between two values
