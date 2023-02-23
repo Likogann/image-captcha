@@ -188,6 +188,7 @@ if (Captcha.verifyCaptcha(captchaToVerify, userInput)) { // "verifyCaptcha()" re
 ### NodeJS modules
 canvas [(npm)](https://www.npmjs.com/package/canvas) [(github)](https://github.com/Automattic/node-canvas) - Used for image generation.  
 invert-color [(npm)](https://www.npmjs.com/package/invert-color) [(github)](https://github.com/onury/invert-color) - Used to determine if the text on the generated captcha image should be black or white.  
+bcrypt [(npm)](https://www.npmjs.com/package/bcrypt) [(github)](https://github.com/kelektiv/node.bcrypt.js)
 
 ### Fonts
 OpenSans by Steve Matteson [(google fonts)](https://fonts.google.com/?query=Steve+Matteson)
