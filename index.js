@@ -1,17 +1,18 @@
-module.exports = { genCaptcha, genCaptchav2, verifyCaptcha, genImgFromBuffer };
+let object = {}
+module.exports = object;
 
 // # Dependencies
 const bcrypt = require('bcrypt');
 
 // # Captcha Generation
 // ## generateCaptcha.js
-function genCaptcha(config) {
+object.genCaptcha = function(config) {
   let genCaptcha = require('./src/generateCaptcha.js');
   return genCaptcha(config);
 };
 
 // ## generateCaptchav2.js
-function genCaptchav2() {
+object.genCaptchav2 = function() {
   // Generate a background colour. We cannot do this inside var config ...
   // as it's used twice
   bgColour = "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)});
@@ -41,13 +42,13 @@ function genCaptchav2() {
 
 // # Captcha Translation
 // ## generateImageFromBuffer.js
-function genImgFromBuffer(buf, path) {
-  let genImgFromBuffer = require('./src/generateImageFromBuffer.js');
-  return genImgFromBuffer(buf, path);
+object.genImage = function(buf, path) {
+  let genImage = require('./src/generateImageFromBuffer.js');
+  return genImage(buf, path);
 };
 
 // # Captcha Verification
-function verifyCaptcha(input, guess) {
+object.verifyCaptcha = function(input, guess) {
     // Compare old hash to new hash
     return bcrypt.compareSync(`${guess + input.id}`, input.hash);
 };
