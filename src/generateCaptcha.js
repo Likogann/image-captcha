@@ -30,7 +30,7 @@ module.exports = function(configIn = {}) {
 
     // # Code
     // ## Register the font
-    registerFont('fonts/OpenSans-Regular.ttf', { family: 'OpenSans' });
+    registerFont(__dirname + '/../fonts/OpenSans-Regular.ttf', { family: 'OpenSans' });
 
     // ## Set size of canvas and background
     canvas.width = width;
