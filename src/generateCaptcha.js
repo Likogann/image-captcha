@@ -2,8 +2,8 @@ module.exports = function(configIn = {}) {
     const invert = require('invert-color')
     // # Variable Initialisation
     // ## Image
-    let width = configIn.width || 400;
-    let height = configIn.height || 200;
+    let width = configIn.width || 512;
+    let height = configIn.height || 256;
     let bgColour = configIn.bgColour || "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
     let textColour = configIn.textColour || invert(bgColour, true);
     let realTextColour = configIn.realTextColour || textColour
@@ -13,7 +13,7 @@ module.exports = function(configIn = {}) {
     let shapes = configIn.shapes || genRandom(10, 25);
     let shapesSizeMultiplier = configIn.shapesSizeMultiplier || 40
     // ## Text size, length, and rotation
-    let fontsize = configIn.fontsize || 60;
+    let fontsize = configIn.fontsize || 80;
     let charLength = configIn.charLength || 6;
     let rotatemax = configIn.rotatemax || 30;
     let rotatemin = configIn.rotatemin || -30;
