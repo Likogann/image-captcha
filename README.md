@@ -28,11 +28,11 @@ let newCaptcha = Captcha.genCaptcha();
 To turn the generated captcha into a PNG image in the applications root directory.
 ```js
 let newCaptcha = Captcha.genCaptcha();
-Captcha.genImage(newCaptcha, 'image.png');
+Captcha.genImage(newCaptcha.png, 'image.png');
 ```
 To generate the image in the directory `src/captchas/captcha.png`
 ```js
-Captcha.genImage(newCaptcha, 'src/captchas/captcha.png');
+Captcha.genImage(newCaptcha.png, 'src/captchas/captcha.png');
 ```
 
 
@@ -131,7 +131,7 @@ Input the whole object from `genCaptcha()`
 ```js
 let newCaptcha = Captcha.genCaptcha()
 
-Captcha.genImage(newCaptcha, 'image.png')
+Captcha.genImage(newCaptcha.png, 'image.png')
 ```
 #### Image Location
 The second input is the image path in a string.
@@ -142,7 +142,7 @@ You can even get creative and use other variables to define a better suited path
 let newCatpcha = genCaptcha()
 
 let location = '`/var/www/website/images/captchas/${newCaptcha.id}.png`
-Captcha.genImage(newCaptcha, location)
+Captcha.genImage(newCaptcha.png, location)
 ```
 
 
