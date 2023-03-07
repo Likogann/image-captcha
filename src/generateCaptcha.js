@@ -9,8 +9,8 @@ module.exports = function(configIn = {}) {
     let realTextColour = configIn.realTextColour || textColour
     // ## Obfuscation
     let lineWidth = configIn.lineWidth || 2;
-    let lines = configIn.lines || Math.random()*20;
-    let shapes = configIn.shapes || Math.random()*20;
+    let lines = configIn.lines || genRandom(15, 40);
+    let shapes = configIn.shapes || genRandom(10, 25);
     let shapesSizeMultiplier = configIn.shapesSizeMultiplier || 40
     // ## Text size, length, and rotation
     let fontsize = configIn.fontsize || 60;

@@ -1,6 +1,6 @@
 {
   "name": "@likogan/image-captcha",
-  "version": "v1.1.1",
+  "version": "v1.1.1b",
   "description": "Image captcha generation",
   "license": "MIT",
   "repository": "likogann/image-captcha",
