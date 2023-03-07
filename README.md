@@ -174,10 +174,19 @@ let userInput = 'IVPUVK';
 console.log(verifyCaptcha(captchaToVerify, userInput))
 ```
 
+#### Expire time in Minutes
+The time in minutes after which the captcha expires. By default, the captcha will never expire.
+```js
+let expire = 10 // Expire after 10 minutes
+
+console.log(verifyCaptcha(captcha, userInput, expire))
+```
+If the expire time is passed, the function will return `false`, even if the captcha was correct.
+
 ### Ouputs
 `verifyCaptcha()` returns a boolean, true or false, depending on if the captcha is correct or not.
 ```js
-if (Captcha.verifyCaptcha(captchaToVerify, userInput)) { // "verifyCaptcha()" returns boolean value
+if (Captcha.verifyCaptcha(captcha, userInput, 10)) { // "verifyCaptcha()" returns boolean value
 	console.log('Correct input');
 } else {
 	console.log('Invalid Input');

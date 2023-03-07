@@ -48,9 +48,19 @@ object.genImage = function(buf, path) {
 };
 
 // # Captcha Verification
-object.verifyCaptcha = function(input, guess) {
-    // Compare old hash to new hash
-    return bcrypt.compareSync(`${guess + input.id}`, input.hash);
+object.verifyCaptcha = function(input, guess, timeout = null) {
+  // Convert inputted minutes to milliseconds
+  let ms = timeout * 60000
+  // Check if that much time has passed
+  let date = new Date
+  console.log(date.getTime())
+
+  let toReturn = false
+  if (date.getTime() - input.id <= ms || timeout === null) {
+    toReturn = bcrypt.compareSync(`${guess + input.id}`, input.hash);
+  }
+
+  return toReturn
 };
 
 // # Internal Functions
